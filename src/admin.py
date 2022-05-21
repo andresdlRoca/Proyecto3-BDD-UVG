@@ -129,7 +129,7 @@ def renderAgregarC():
     entryarea.configure(width=300, height=300)
 
 def AgregarC(id_con,titulo, links, tipo, duracion, fecha):
-    cur.execute(f"INSERT INTO multimedia(id, nombre, fecha_estreno, tipo_contenido, links, duracion, estado) VALUES('{id_con}', '{titulo}', '{fecha}', '{tipo}', '{links}', {duracion}, 'activo')")
+    cur.execute(f"INSERT INTO multimedia(id, nombre, fecha_estreno, tipo_contenido, links, duracion) VALUES('{id_con}', '{titulo}', '{fecha}', '{tipo}', '{links}', {duracion})")
     conn.commit()
 
 

@@ -1,3 +1,4 @@
+from msvcrt import setmode
 import psycopg2
 import tkinter as tk
 from tkinter import *
@@ -5,6 +6,7 @@ from tkcalendar import *
 import tkinter.font as tkFont
 from tkinter import OptionMenu, Scrollbar, StringVar, messagebox
 from datetime import date
+from simulacion_historial import simularRegistro
 
 background = '#ffe4e1'
 foreground = '#79a1e0'
@@ -31,7 +33,11 @@ def main_screen():
     button_premium_accounts.place(relx=0.9, rely=0.5, anchor="e")
     
     button_peak_hour = tk.Button(window, bg=foreground, width=30, height=4, text="peak_hour", font=Font, command=lambda: peak_hour())
-    button_peak_hour.place(relx=0.5, rely=0.8, anchor="center")
+    button_peak_hour.place(relx=0.1, rely=0.8, anchor="w")
+
+    button_generate_views = tk.Button(window, bg=foreground, width=30, height=4, text="Generate Views", font=Font, command=lambda: generateViews())
+    button_generate_views.place(relx=0.9, rely=0.8, anchor="e")
+
     
     window.mainloop()
 
@@ -433,6 +439,21 @@ def peak_hour():
     
     entryarea = tk.Canvas(window, width=450, height=400, bg=foreground)
     entryarea.place(relx=0.95, rely=0.5, anchor="e")
+
+def generateViews():
+    window, Font = create_screenUI("Generate_Views")
+
+    myCal = Calendar(window, setmode="day", date_pattern="yyyy-mm-dd")
+    myCal.place(relx=0.5, rely=0.4, anchor="center")
+
+    simulInput = tk.Entry(window, width=30)
+    simulInput.place(relx=0.5, rely=0.7, anchor="center")
+    simulInput.insert(0, "Numero de simulaciones")
+
+    button_select = tk.Button(window, bg=foreground, width=20, height=2, text="Simular visualizaciones", font=Font, command=lambda: simularRegistro(simulInput.get(), myCal.get_date()))
+    button_select.place(relx=0.5, rely=0.8, anchor="center")
+
+
     
 def peak_hour_report(date, report_area, Font):
     given_date = date.get_date()
