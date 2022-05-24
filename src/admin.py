@@ -4,7 +4,7 @@ import tkinter.font as tkFont
 from tkcalendar import *
 from reportes import main_screen
 import psycopg2
-conn = psycopg2.connect("host=localhost dbname=proyecto_2 user=postgres password=rwby123")
+conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
 cur = conn.cursor()
 
 background = '#ffe4e1'
@@ -103,7 +103,7 @@ def clear_entradas(event, entry):
 
 def logueandose(usuario, contraseña):
     nombreuser = usuario.get()
-    cur.execute(f"SELECT * FROM multimedia WHERE id = '{nombreuser}'")
+    cur.execute(f"SELECT * FROM multimedia WHERE id_contenido = '{nombreuser}'")
     x = cur.fetchall()
     print(x)
     mensajelogin= f"Bienvenido {nombreuser}!"
@@ -129,7 +129,7 @@ def renderAgregarC():
     entryarea.configure(width=300, height=300)
 
 def AgregarC(id_con,titulo, links, tipo, duracion, fecha):
-    cur.execute(f"INSERT INTO multimedia(id, nombre, fecha_estreno, tipo_contenido, links, duracion) VALUES('{id_con}', '{titulo}', '{fecha}', '{tipo}', '{links}', {duracion})")
+    cur.execute(f"INSERT INTO multimedia(id_contenido, nombre, fecha_estreno, tipo_contenido, links, duracion) VALUES('{id_con}', '{titulo}', '{fecha}', '{tipo}', '{links}', {duracion})")
     conn.commit()
 
 

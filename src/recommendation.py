@@ -71,17 +71,17 @@ def visualizar(link, id_perfil, id_contenido):
             return False
 
 def buscar_reccommendation(id_perfil):
-    conn = psycopg2.connect("host=localhost dbname=proyecto_2 user=postgres password=rwby123")
+    conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
     cur = conn.cursor()
     cur.execute("""
         SELECT  generos.id_genero, COUNT(generos.id_genero) 
         FROM    generos
         JOIN    genero_contenido ON genero_contenido.id_genero = generos.id_genero
-        JOIN    multimedia ON multimedia.id = genero_contenido.id_contenido
-        JOIN    historial ON historial.id_contenido = multimedia.id
+        JOIN    multimedia ON multimedia.id_contenido = genero_contenido.id_contenido
+        JOIN    historial ON historial.id_contenido = multimedia.id_contenido
         JOIN    perfil  ON  perfil.id = historial.id_perfil
         WHERE   %(id_perfil)s = historial.id_perfil
-        AND     historial.id_contenido = multimedia.id
+        AND     historial.id_contenido = multimedia.id_contenido
         GROUP BY    generos.id_genero
         ORDER BY    COUNT(generos.id_genero) DESC
         """, {
@@ -95,9 +95,9 @@ def buscar_reccommendation(id_perfil):
     
     for i in search_records:
         cur.execute("""
-            SELECT  multimedia.nombre, multimedia.id, multimedia.links
+            SELECT  multimedia.nombre, multimedia.id_contenido, multimedia.links
             FROM    multimedia
-            JOIN    genero_contenido ON genero_contenido.id_contenido = multimedia.id
+            JOIN    genero_contenido ON genero_contenido.id_contenido = multimedia.id_contenido
             WHERE   id_genero = %(genre)s
             LIMIT %(amount)s
         """, {

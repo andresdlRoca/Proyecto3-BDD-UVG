@@ -68,7 +68,7 @@ def signup(username, password, email, accountType):
         tk.messagebox.showinfo("Error de datos", "Datos ingresados invalidos")
     else:
         try:
-            conn = psycopg2.connect("host=localhost dbname=proyecto_2 user=postgres password=rwby123")
+            conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
             cur = conn.cursor()
             cur.execute("INSERT INTO usuario (nombre_usuario, contraseña, correo, estado) values (%s, %s, %s, %s)",
                     (username, hashed, email, state))

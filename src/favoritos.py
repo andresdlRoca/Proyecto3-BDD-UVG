@@ -8,7 +8,7 @@ import vlc
 import keyboard
 import time
 
-conn = psycopg2.connect("host=localhost dbname=proyecto_2 user=postgres password=rwby123")
+conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
 cur = conn.cursor()
 
 def registrar_favs(id_contenido, id_perfil):
@@ -53,9 +53,9 @@ def visualizar(link, id_perfil, id_contenido):
 
 def buscar_favorito(id_perfil):
     cur.execute("""
-        SELECT 	multimedia.nombre, multimedia.id, multimedia.links
+        SELECT 	multimedia.nombre, multimedia.id_contenido, multimedia.links
         FROM	multimedia
-        JOIN	favoritos ON  favoritos.contenido_id = multimedia.id
+        JOIN	favoritos ON  favoritos.contenido_id = multimedia.id_contenido
         WHERE	favoritos.perfil_id = %(id_perfil)s
     """, {
         'id_perfil': id_perfil

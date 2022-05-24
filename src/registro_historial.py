@@ -31,9 +31,9 @@ def registrar_historial(id_contenido, id_perfil):
 
 def buscar_historial(id_perfil):
     cur.execute("""
-        SELECT 	multimedia.nombre, historial.fecha_visualizacion, multimedia.id, multimedia.links
+        SELECT 	multimedia.nombre, historial.fecha_visualizacion, multimedia.id_contenido, multimedia.links
         FROM	historial
-        JOIN	multimedia ON historial.id_contenido = multimedia.id
+        JOIN	multimedia ON historial.id_contenido = multimedia.id_contenido
         WHERE	id_perfil = %(id_perfil)s
         ORDER BY historial.fecha_visualizacion DESC
     """, {

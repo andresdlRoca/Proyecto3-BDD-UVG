@@ -10,7 +10,7 @@ from favoritos import UI_favorito, registrar_favs
 from registro_historial import *
 from recommendation import recommendation_UI
 
-conn = psycopg2.connect("host=localhost dbname=proyecto_2 user=postgres password=rwby123")
+conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
 cur = conn.cursor()
 
 def clear_entradas(event, entry):
@@ -36,9 +36,9 @@ def busqueda_estreno(busqueda):
 def busquedaGeneral(busqueda):
 
     cur.execute(f"""
-        SELECT	multimedia.nombre, multimedia.links, multimedia.id
+        SELECT	multimedia.nombre, multimedia.links, multimedia.id_contenido
         FROM	multimedia
-        WHERE	multimedia.id IN(
+        WHERE	multimedia.id_contenido IN(
             SELECT multimedia_id
             FROM actor_contenido
             WHERE actor_contenido.actor_id IN (
@@ -47,7 +47,7 @@ def busquedaGeneral(busqueda):
                 WHERE nombre_completo ILIKE '%{busqueda}%'
             )
         )
-        OR	multimedia.id IN(
+        OR	multimedia.id_contenido IN(
             SELECT multimedia_id
             FROM director_contenido
             WHERE director_contenido.id IN (
@@ -56,7 +56,7 @@ def busquedaGeneral(busqueda):
                 WHERE nombre_completo ILIKE '%{busqueda}%'
             )
         )
-        OR	multimedia.id IN(
+        OR	multimedia.id_contenido IN(
             SELECT id_contenido
             FROM genero_contenido
             WHERE genero_contenido.id_genero IN (
@@ -66,7 +66,7 @@ def busquedaGeneral(busqueda):
             )
         )
         OR	multimedia.tipo_contenido = '%{busqueda}%'
-        OR	multimedia.id IN(
+        OR	multimedia.id_contenido IN(
             SELECT multimedia_id
             FROM premios_contenido
             WHERE premios_contenido.id IN (

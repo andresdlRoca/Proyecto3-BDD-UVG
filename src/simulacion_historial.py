@@ -5,7 +5,7 @@ from tkinter import *
 from tkinter import OptionMenu, Scrollbar, StringVar, messagebox
 import random
 
-conn = psycopg2.connect("host=localhost dbname=proyecto_2 user=postgres password=rwby123")
+conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
 cur = conn.cursor()
 
 def simularRegistro(repeticiones, fecha):
@@ -19,7 +19,7 @@ def simularRegistro(repeticiones, fecha):
 
     #Recopilacion de multimedia
     cur.execute("""
-        SELECT id FROM multimedia
+        SELECT id_contenido FROM multimedia
     """)
 
     multimedia_records = cur.fetchall()

@@ -75,15 +75,15 @@ def top10_genre_report(initial, final, report_area, Font):
     
 
     
-    conn = psycopg2.connect("host=localhost dbname=proyecto_2 user=postgres password=rwby123")
+    conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
     cur = conn.cursor()
     cur.execute("""
         SELECT  generos.nombre, SUM(multimedia.duracion) 
         FROM    generos
         JOIN    genero_contenido ON genero_contenido.id_genero = generos.id_genero
-        JOIN    multimedia ON multimedia.id = genero_contenido.id_contenido
-        JOIN    historial ON historial.id_contenido = multimedia.id
-        WHERE   historial.id_contenido = multimedia.id
+        JOIN    multimedia ON multimedia.id_contenido = genero_contenido.id_contenido
+        JOIN    historial ON historial.id_contenido = multimedia.id_contenido
+        WHERE   historial.id_contenido = multimedia.id_contenido
         AND     historial.fecha_visualizacion >  %(initial_date)s
         AND     historial.fecha_visualizacion < %(final_date)s
         GROUP BY    generos.nombre
@@ -129,7 +129,7 @@ def reproduction_amount_report(initial, final, report_area, Font):
     initial_date = initial.get_date()
     final_date = final.get_date()
     
-    conn = psycopg2.connect("host=localhost dbname=proyecto_2 user=postgres password=rwby123")
+    conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
     cur = conn.cursor()
     cur.execute("""
         SELECT  subscripcion.tipo, COUNT(historial.fecha_visualizacion)
@@ -183,15 +183,15 @@ def top10_staff():
     normal_actor_txt = Label(premiumArea, text = "Directores", bg = foreground, font = Font)
     normal_actor_txt.place(relx=0.5, rely=0.55, anchor="center")
     
-    conn = psycopg2.connect("host=localhost dbname=proyecto_2 user=postgres password=rwby123")
+    conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
     cur = conn.cursor()
     cur.execute("""
     SELECT  actor.nombre_completo, COUNT(actor_contenido.actor_id)
     FROM    perfil
     JOIN    subscripcion ON subscripcion.usuario = perfil.usuario
     JOIN    historial ON historial.id_perfil = perfil.id
-    JOIN    multimedia ON multimedia.id = historial.id_contenido
-    JOIN    actor_contenido ON  actor_contenido.multimedia_id = multimedia.id
+    JOIN    multimedia ON multimedia.id_contenido = historial.id_contenido
+    JOIN    actor_contenido ON  actor_contenido.multimedia_id = multimedia.id_contenido
     JOIN    actor ON actor.id = actor_contenido.actor_id
     WHERE   subscripcion.tipo = '1'
     GROUP BY    actor.nombre_completo
@@ -201,15 +201,15 @@ def top10_staff():
     
     actors_basic = cur.fetchall()
     
-    conn = psycopg2.connect("host=localhost dbname=proyecto_2 user=postgres password=rwby123")
+    conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
     cur = conn.cursor()
     cur.execute("""
     SELECT  director.nombre_completo, COUNT(director_contenido.id)
     FROM    perfil
     JOIN    subscripcion ON subscripcion.usuario = perfil.usuario
     JOIN    historial ON historial.id_perfil = perfil.id
-    JOIN    multimedia ON multimedia.id = historial.id_contenido
-    JOIN    director_contenido ON   director_contenido.multimedia_id = multimedia.id
+    JOIN    multimedia ON multimedia.id_contenido = historial.id_contenido
+    JOIN    director_contenido ON   director_contenido.multimedia_id = multimedia.id_contenido
     JOIN    director ON director.id = director_contenido.id
     WHERE   subscripcion.tipo = '1'
     GROUP BY    director.nombre_completo
@@ -257,15 +257,15 @@ def top10_staff():
     
             
             
-    conn = psycopg2.connect("host=localhost dbname=proyecto_2 user=postgres password=rwby123")
+    conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
     cur = conn.cursor()
     cur.execute("""
     SELECT  actor.nombre_completo, COUNT(actor_contenido.actor_id)
     FROM    perfil
     JOIN    subscripcion ON subscripcion.usuario = perfil.usuario
     JOIN    historial ON historial.id_perfil = perfil.id
-    JOIN    multimedia ON multimedia.id = historial.id_contenido
-    JOIN    actor_contenido ON  actor_contenido.multimedia_id = multimedia.id
+    JOIN    multimedia ON multimedia.id_contenido = historial.id_contenido
+    JOIN    actor_contenido ON  actor_contenido.multimedia_id = multimedia.id_contenido
     JOIN    actor ON actor.id = actor_contenido.actor_id
     WHERE   subscripcion.tipo = '2' OR subscripcion.tipo='3'
     GROUP BY    actor.nombre_completo
@@ -275,15 +275,15 @@ def top10_staff():
     
     actors_advanzed = cur.fetchall()
     
-    conn = psycopg2.connect("host=localhost dbname=proyecto_2 user=postgres password=rwby123")
+    conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
     cur = conn.cursor()
     cur.execute("""
     SELECT  director.nombre_completo, COUNT(director_contenido.id)
     FROM    perfil
     JOIN    subscripcion ON subscripcion.usuario = perfil.usuario
     JOIN    historial ON historial.id_perfil = perfil.id
-    JOIN    multimedia ON multimedia.id = historial.id_contenido
-    JOIN    director_contenido ON   director_contenido.multimedia_id = multimedia.id
+    JOIN    multimedia ON multimedia.id_contenido = historial.id_contenido
+    JOIN    director_contenido ON   director_contenido.multimedia_id = multimedia.id_contenido
     JOIN    director ON director.id = director_contenido.id
     WHERE   subscripcion.tipo = '2' OR subscripcion.tipo='3'
     GROUP BY    director.nombre_completo
@@ -399,7 +399,7 @@ def premium_accounts():
         today_year = str(today_year)
         whole_date = today_year + "-" + "06" + "-" + today_day
         
-    conn = psycopg2.connect("host=localhost dbname=proyecto_2 user=postgres password=rwby123")
+    conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
     cur = conn.cursor()
     cur.execute("""
     SELECT  tipo, COUNT(tipo)
@@ -459,7 +459,7 @@ def peak_hour_report(date, report_area, Font):
     given_date = date.get_date()
     date_list = given_date.split("-")
     
-    conn = psycopg2.connect("host=localhost dbname=proyecto_2 user=postgres password=rwby123")
+    conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
     cur = conn.cursor()
     cur.execute("""
     SELECT  EXTRACT(HOUR FROM   fecha_visualizacion), COUNT(fecha_visualizacion)
