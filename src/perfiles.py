@@ -39,7 +39,7 @@ def nuevo():
 
 def click():
     name = window.entry.get()
-    connection = psycopg2.connect("host=localhost dbname=proyecto_2 user=postgres password=rwby123")
+    connection = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
     cursor = connection.cursor()
     cursor.execute('''SELECT COUNT(*) FROM perfil''')
     cantidad = cursor.fetchall()
@@ -51,7 +51,7 @@ def click():
     result2 = cursor.fetchall()
     cursor.execute(f'''SELECT * FROM usuario INNER JOIN subscripcion ON usuario.nombre_usuario = subscripcion.usuario WHERE nombre_usuario = '{usuario}';''')
     result3 = cursor.fetchall()
-    subscription = int(result3[0][6])
+    subscription = int(result3[0][7])
     for widgets in window.winfo_children():
       widgets.destroy()
     if subscription == 1 and perfiles < 1:
@@ -98,7 +98,7 @@ def click():
 def hola():
     for widgets in window.winfo_children():
       widgets.destroy()
-    connection = psycopg2.connect("host=localhost dbname=proyecto_2 user=postgres password=rwby123")
+    connection = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
     cursor = connection.cursor()
     cursor.execute('''SELECT COUNT(*) FROM perfil''')
     cantidad = cursor.fetchall()
@@ -110,8 +110,8 @@ def hola():
     result2 = cursor.fetchall()
     cursor.execute(f'''SELECT * FROM usuario INNER JOIN subscripcion ON usuario.nombre_usuario = subscripcion.usuario WHERE nombre_usuario = '{usuario}';''')
     result3 = cursor.fetchall()
-    print(result3[0][6])
-    subscription = int(result3[0][6])
+    #print(result3[0][6])
+    subscription = int(result3[0][7])
     window.geometry("300x350")
     l = Label(window, text = "Seleccione!")
     l.config(font =("Courier", 14))
@@ -127,7 +127,7 @@ def hola():
     connection.close()
     
 def select(X):
-    connection = psycopg2.connect("host=localhost dbname=proyecto_2 user=postgres password=rwby123")
+    connection = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
     cursor = connection.cursor()
     cursor.execute('''SELECT COUNT(*) FROM perfil''')
     cantidad = cursor.fetchall()
@@ -139,8 +139,8 @@ def select(X):
     result2 = cursor.fetchall()
     cursor.execute(f'''SELECT * FROM usuario INNER JOIN subscripcion ON usuario.nombre_usuario = subscripcion.usuario WHERE nombre_usuario = '{usuario}';''')
     result3 = cursor.fetchall()
-    print(result3[0][6])
-    subscription = int(result3[0][6])
+    print(result3[0][7])
+    subscription = int(result3[0][7])
     print("lol")
     elegido = result2[X][1]
     print("El usario elegido fue " + elegido + "\n")
@@ -148,7 +148,7 @@ def select(X):
     result4 = cursor.fetchall()
     print(f"Contenido Visto:\n {result4}")
     window.destroy()
-    UI_busqueda(result2[X][2], result3[0][6])
+    UI_busqueda(result2[X][2], result3[0][7])
 
 
 
@@ -156,7 +156,7 @@ def perfiles():
     window.deiconify()
     for widgets in window.winfo_children():
       widgets.destroy()
-    connection = psycopg2.connect("host=localhost dbname=proyecto_2 user=postgres password=rwby123")
+    connection = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
     cursor = connection.cursor()
     cursor.execute('''SELECT COUNT(*) FROM perfil''')
     cantidad = cursor.fetchall()
@@ -168,8 +168,9 @@ def perfiles():
     result2 = cursor.fetchall()
     cursor.execute(f'''SELECT * FROM usuario INNER JOIN subscripcion ON usuario.nombre_usuario = subscripcion.usuario WHERE nombre_usuario = '{usuario}';''')
     result3 = cursor.fetchall()
-    print(result3[0][6])
-    subscription = int(result3[0][6])
+    #print(result3[0][6])
+    print(result3)
+    subscription = int(result3[0][7])
     window.geometry("300x700")
     l = Label(window, text = "Seleccione!")
     l.config(font =("Courier", 14))

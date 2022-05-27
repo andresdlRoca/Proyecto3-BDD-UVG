@@ -14,12 +14,12 @@ import psycopg2
 import bcrypt
 from datetime import date
 
-conn = psycopg2.connect("host=localhost dbname=proyecto_2 user=postgres password=rwby123")
+conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
 cur = conn.cursor()
 
 def loginInfo(usuario, contraseña):
 
-    fetchLoginInfo_Query = "SELECT nombre_usuario,contraseña FROM usuario WHERE usuario.nombre_usuario = '{0}'".format(usuario)
+    #fetchLoginInfo_Query = "SELECT nombre_usuario,contraseña FROM usuario WHERE usuario.nombre_usuario = '{0}'".format(usuario)
     cur.execute("""
         SELECT  nombre_usuario,contraseña
         FROM    usuario
@@ -52,3 +52,16 @@ def loginInfo(usuario, contraseña):
         conn.commit()
         return False
 
+def checkAdmin(usuario):
+    cur.execute("""
+        SELECT isadmin
+        FROM usuario
+        WHERE usuario.nombre_usuario = %(usuario)s
+
+    """ , {
+        "usuario": usuario
+    })
+
+    adminState = cur.fetchall()
+    #print(adminState[0][0])
+    return adminState[0][0]
