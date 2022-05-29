@@ -3,6 +3,7 @@ from tkinter import messagebox
 import tkinter.font as tkFont
 from tkcalendar import *
 from reportes import main_screen
+from bitacora import *
 import psycopg2
 conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
 cur = conn.cursor()
@@ -555,10 +556,29 @@ def RelacionarRP(contenido, director):
     cur.execute(f"INSERT INTO premios_contenido(multimedia_id, id) VALUES('{contenido}', '{director}')")
     conn.commit()
         
+def administrar():
+    botonadministrar.place_forget()
+    botonmodificarU.place_forget()
+    botoneliminarU.place_forget()
+    inputUsuario.delete(0, tk.END)
+    inputUsuario3.insert(0, "ID del usuario a hacer administrador")
+    inputUsuario3.place(relx=0.5, rely=0.1, anchor="center")
+    volverMenu.place(relx=0.07, rely=0.7, anchor="w")
+    administracion.place(relx=0.92, rely=0.7, anchor="e")
+    entryarea.configure(width=300, height=300)
+    typeMenu.place(relx=0.5, rely=0.3, anchor="center")
+
+def administrador(user, clicker):
+    cur.execute(f"UPDATE usuario SET isadmin = '{clicker}' WHERE nombre_usuario = '{user}'")
+    conn.commit()
+    
+    
+
 window = tk.Tk(className="Streameo (Working title)")
 
 botonesFont = tkFont.Font(family="@MS UI Gothic", size=16, weight="bold" )
 loginFont = tkFont.Font(family="@MS UI Gothic", size=8, weight="bold" )
+
 
 #Render del logo de la aplicacion
 
@@ -643,13 +663,19 @@ botonDirectorR = tk.Button(entryarea, bg=background, width=20, height=1, text="D
 
 botonPremioR = tk.Button(entryarea, bg=background, width=20, height=1, text="Premios", font=botonesFont, command=lambda: renderRelacionarRP())
 
+botonadministrar = tk.Button(entryarea, bg=background, width=20, height=3, text="Administrar", font=botonesFont, command=lambda: administrar())
 
+clicked = StringVar()
+clicked.set("true")
+typeMenu = OptionMenu(entryarea, clicked, "true", "false")
 
 #Area de login
 inputUsuario = tk.Entry(entryarea, width=30)
 inputUsuario.bind("<Button-1>", lambda event: clear_entradas(event, inputUsuario))
 inputUsuario2 = tk.Entry(entryarea, width=30)
 inputUsuario2.bind("<Button-1>", lambda event: clear_entradas(event, inputUsuario2))
+inputUsuario3 = tk.Entry(entryarea, width=40)
+inputUsuario3.bind("<Button-1>", lambda event: clear_entradas(event, inputUsuario3))
 inputtitulo = tk.Entry(entryarea, width=30)
 inputtitulo.bind("<Button-1>", lambda event: clear_entradas(event, inputtitulo))
 inputgenero = tk.Entry(entryarea, width=30)
@@ -685,6 +711,7 @@ relacionarRG = tk.Button(entryarea, bg=background, width=10, height=2, text="Eli
 relacionarRA = tk.Button(entryarea, bg=background, width=10, height=2, text="Eliminar", font=loginFont, command=lambda: RelacionarRA(inputUsuario.get(), inputUsuario2.get()))
 relacionarRD = tk.Button(entryarea, bg=background, width=10, height=2, text="Eliminar", font=loginFont, command=lambda: RelacionarRD(inputUsuario.get(), inputUsuario2.get()))
 relacionarRP = tk.Button(entryarea, bg=background, width=10, height=2, text="Eliminar", font=loginFont, command=lambda: RelacionarRP(inputUsuario.get(), inputUsuario2.get()))
+administracion = tk.Button(entryarea, bg=background, width=10, height=2, text="Administrar", font=loginFont, command=lambda: administrador(inputUsuario3.get(), clicked.get()))
 
 #inicializacionAdmin()
 
