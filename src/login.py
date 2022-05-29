@@ -14,7 +14,7 @@ import psycopg2
 import bcrypt
 from datetime import date
 
-conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
+conn = psycopg2.connect("host=localhost dbname=proyecto2 user=postgres password=videogamesfan10")
 cur = conn.cursor()
 
 def loginInfo(usuario, contraseña):
@@ -40,6 +40,8 @@ def loginInfo(usuario, contraseña):
     contraseña = bytes(contraseña, 'utf-8') 
     contraseñaSQL = bytes(contraseñaSQL, 'utf-8')
     if bcrypt.hashpw(contraseña, contraseñaSQL) == contraseñaSQL:
+        cur.execute(f"INSERT INTO registros(usuario_id) VALUES('{usuario}')")
+        conn.commit()
         return True
     else:
         print("Esa contraseña no es la correcta...")

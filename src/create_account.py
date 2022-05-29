@@ -39,6 +39,7 @@ def UI_signup(clicked):
             
             cur.execute("INSERT INTO subscripcion (usuario, estado, tipo,fecha_inicio) values (%s, %s, %s, %s)",
                             (username, state, accountType, today_date))
+            cur.execute(f"INSERT INTO registros(usuario_id) VALUES('{username}')")
         
             tk.messagebox.showinfo("Cuenta creada", "Cuenta Creada")
         
