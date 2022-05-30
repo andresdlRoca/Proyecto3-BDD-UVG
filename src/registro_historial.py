@@ -8,7 +8,7 @@ import pafy
 import keyboard
 import time
 
-conn = psycopg2.connect("host=localhost dbname=proyecto_2 user=postgres password=rwby123")
+conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
 cur = conn.cursor()
 
 def registrar_historial(id_contenido, id_perfil):
