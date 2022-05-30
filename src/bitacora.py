@@ -3,7 +3,6 @@ from datetime import date
 import tkinter as tk
 from tkinter import OptionMenu, Scrollbar, StringVar, messagebox
 import tkinter.font as tkFont
-
 import time
 
 conn = psycopg2.connect("host=localhost dbname=proyecto2 user=postgres password=videogamesfan10")
@@ -12,6 +11,7 @@ cur = conn.cursor()
 
 
 def buscar_bitacora():
+
     cur.execute("""
         SELECT 	*
         FROM	bitacora
@@ -27,6 +27,8 @@ def buscar_bitacora():
     return bitacora_records
 
 def bitacora(scrollable_frame):
+    print("Lol")
+
     try:
         listabitacora = []
         listabitacora = buscar_bitacora()
@@ -37,9 +39,7 @@ def bitacora(scrollable_frame):
                 widget.destroy()
 
             for item in listabitacora:
-                print(":)")
                 labelFecha = tk.Label(scrollable_frame, text=item[0], bg='#ffe4e1')
-                print(":D")
                 labelHora = tk.Label(scrollable_frame, text=item[1], bg='#ffe4e1')
                 labelTabla = tk.Label(scrollable_frame, text=item[2], bg='#ffe4e1')
                 labelID = tk.Label(scrollable_frame, text=item[3], bg='#ffe4e1')
@@ -88,8 +88,6 @@ def UI_bitacora():
     resultadosbitacora.pack(side="left", fill="both", expand=True)
     scrollbar.pack(side="right", fill="y")
 
-    bitacora(scrollable_frame)
-
 
     volver = tk.Button(bitacoraWindow, bg=background, width=5, height=1, text="Volver", font=bitacora, command= lambda: bitacoraWindow.destroy())
     refresh = tk.Button(bitacoraWindow, bg=background, width=5, height=1, text="Refresh", font=bitacora, command=bitacora(scrollable_frame))
@@ -102,4 +100,4 @@ def UI_bitacora():
     bitacoraWindow.resizable(False,False)
     bitacoraWindow.mainloop()
 
-UI_bitacora()
+UI_bitacora
