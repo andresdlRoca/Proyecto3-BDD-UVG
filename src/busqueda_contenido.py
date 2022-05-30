@@ -9,6 +9,7 @@ import keyboard
 from favoritos import UI_favorito, registrar_favs
 from registro_historial import *
 from recommendation import recommendation_UI
+from registro_busquedas import registrar_busqueda
 
 conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
 cur = conn.cursor()
@@ -34,7 +35,7 @@ def busqueda_estreno(busqueda):
     return search_records
 
 def busquedaGeneral(busqueda):
-
+    
     cur.execute(f"""
         SELECT	multimedia.nombre, multimedia.links, multimedia.id_contenido
         FROM	multimedia
@@ -100,6 +101,7 @@ def busqueda(scrollable_frame, busqueda, id_perfil, subscripcion):
             labelresultados.grid(row=0, column=0, padx=200, pady=5)
 
         listaBusqueda = busquedaGeneral(busqueda)
+        registrar_busqueda(busqueda, id_perfil)
         count=0
         if listaBusqueda:
             for widget in scrollable_frame.winfo_children():

@@ -5,7 +5,7 @@ from tkinter import OptionMenu, Scrollbar, StringVar, messagebox
 import tkinter.font as tkFont
 import time
 
-conn = psycopg2.connect("host=localhost dbname=proyecto2 user=postgres password=videogamesfan10")
+conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
 cur = conn.cursor()
 
 

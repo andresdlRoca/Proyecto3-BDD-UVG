@@ -3,6 +3,7 @@ import psycopg2
 
 from tkinter import *
 import tkinter.font as tkFont
+import uuid
 
 from busqueda_contenido import UI_busqueda
 
@@ -59,7 +60,7 @@ def click():
         l.config(font =("Courier", 14))
         window.configure(bg=foreground)
         l.pack()
-        cursor.execute(f'''INSERT INTO perfil(usuario, nombre, id, estado_vista, estado_perfil) VALUES ('{usuario}', '{name}', '{cantidad+1}', 'Activo', 'Activo'); ''')
+        cursor.execute(f'''INSERT INTO perfil(usuario, nombre, id, estado_vista, estado_perfil) VALUES ('{usuario}', '{name}', '{str(uuid.uuid4())[:8]}', 'Activo', 'Activo'); ''')
     elif subscription == 1 and perfiles >=1:
         l = Label(window, text = "Ya no puede crear perfiles. Debe de mejorar su cuenta.")
         l.config(font =("Courier", 14))
@@ -71,7 +72,7 @@ def click():
         window.configure(bg=foreground)
         l.pack()
         print(name)
-        cursor.execute(f'''INSERT INTO perfil(usuario, nombre, id, estado_vista, estado_perfil) VALUES ('{usuario}', '{name}', '{cantidad+1}', 'Activo', 'Activo'); ''')
+        cursor.execute(f'''INSERT INTO perfil(usuario, nombre, id, estado_vista, estado_perfil) VALUES ('{usuario}', '{name}', '{str(uuid.uuid4())[:8]}', 'Activo', 'Activo'); ''')
     elif subscription == 2 and perfiles >=4:
         l = Label(window, text = "Ya no puede crear perfiles. Debe de mejorar su cuenta.")
         l.config(font =("Courier", 14))
@@ -82,7 +83,7 @@ def click():
         l.config(font =("Courier", 14))
         window.configure(bg=foreground)
         l.pack()
-        cursor.execute(f'''INSERT INTO perfil(usuario, nombre, id, estado_vista, estado_perfil) VALUES ('{usuario}', '{name}', '{cantidad+1}', 'Activo', 'Activo'); ''')
+        cursor.execute(f'''INSERT INTO perfil(usuario, nombre, id, estado_vista, estado_perfil) VALUES ('{usuario}', '{name}', '{str(uuid.uuid4())[:8]}', 'Activo', 'Activo'); ''')
     elif subscription == 3 and perfiles >=8:
         l = Label(window, text = "Ha llegado a la mayor cantidad de perfiles disponibles.")
         l.config(font =("Courier", 14))
