@@ -16,21 +16,19 @@ def main_screen_more_reports():
     Font = tkFont.Font(family="@MS UI Gothic", size=12, weight="bold" )
     logoCanvas = tk.Canvas(window, width = 150, height = 150, highlightthickness=0, bg=background)
     window.configure(bg=background)
-    window.geometry("900x500")
+    window.geometry("500x600")
     window.resizable(False,False)
     
     
     button_top10_genre = tk.Button(window, bg=foreground, width=30, height=6, text="top5_per_hour", font=Font, command=lambda: top5_per_hour())
-    button_top10_genre.place(relx=0.1, rely=0.3, anchor="w")
+    button_top10_genre.place(relx=0.2, rely=0.2, anchor="w")
     
     button_reproduction_amount = tk.Button(window, bg=foreground, width=30, height=6, text="top10_searches", font=Font, command=lambda: top10_searches())
-    button_reproduction_amount.place(relx=0.9, rely=0.3, anchor="e")
+    button_reproduction_amount.place(relx=0.2, rely=0.5, anchor="w")
     
     button_top10_staff = tk.Button(window, bg=foreground, width=30, height=6, text="top5_staff", font=Font, command=lambda: top5_staff())
-    button_top10_staff.place(relx=0.1, rely=0.7, anchor="w")
-    
-    button_premium_accounts = tk.Button(window, bg=foreground, width=30, height=6, text="premium_accounts", font=Font, command=lambda: premium_accounts())
-    button_premium_accounts.place(relx=0.9, rely=0.7, anchor="e")
+    button_top10_staff.place(relx=0.2, rely=0.8, anchor="w")
+
 
     
     window.mainloop()
@@ -169,7 +167,7 @@ def top5_per_hour_report(inputMonth, entryarea9, entryarea10,entryarea11,entryar
                 monthEnd = "2023-01-01"
 
             
-            conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
+            conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=12345")
             cur = conn.cursor()
             cur.execute("""
                 SELECT  *
@@ -570,7 +568,7 @@ def top5_staff_report(initial, final, report_area, Font):
     initial_date = initial.get_date()
     final_date = final.get_date()
     
-    conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
+    conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=12345")
     cur = conn.cursor()
     cur.execute("""
         SELECT  nombre, COUNT(nombre)
@@ -608,7 +606,7 @@ def top10_searches():
     entryarea = tk.Canvas(window, width=300, height=300, bg=foreground)
     entryarea.place(relx=0.5, rely=0.5, anchor="center")
     
-    conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
+    conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=12345")
     cur = conn.cursor()
     cur.execute("""
         SELECT  busqueda, COUNT(busqueda)
@@ -632,4 +630,4 @@ def top10_searches():
         x = x+1
         y = y+0.1
     
-#main_screen_more_reports()
+main_screen_more_reports()
