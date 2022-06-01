@@ -630,4 +630,4 @@ def top10_searches():
         x = x+1
         y = y+0.1
     
-main_screen_more_reports()
+#main_screen_more_reports()
