@@ -11,7 +11,7 @@ from datetime import date, datetime
 background = '#ffe4e1'
 foreground = '#79a1e0'
 
-def main_screen():
+def main_screen_more_reports():
     window = tk.Tk(className="Reportes")
     Font = tkFont.Font(family="@MS UI Gothic", size=12, weight="bold" )
     logoCanvas = tk.Canvas(window, width = 150, height = 150, highlightthickness=0, bg=background)
@@ -632,4 +632,4 @@ def top10_searches():
         x = x+1
         y = y+0.1
     
-main_screen()
+#main_screen_more_reports()
