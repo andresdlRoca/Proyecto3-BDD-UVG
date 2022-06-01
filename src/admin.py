@@ -385,14 +385,14 @@ def renderModificarU():
     inputUsuario.insert(0, "Usuario")
     inputUsuario.place(relx=0.5, rely=0.1, anchor="center")
     inputUsuario2.delete(0, tk.END)
-    inputUsuario2.insert(0, "Correo")
-    inputUsuario2.place(relx=0.5, rely=0.1, anchor="center")
+    inputUsuario2.insert(0, "Subscripcion")
+    inputUsuario2.place(relx=0.5, rely=0.2, anchor="center")
     volverMenu.place(relx=0.07, rely=0.7, anchor="w")
     modificarU.place(relx=0.92, rely=0.7, anchor="e")
     entryarea.configure(width=300, height=300)
 
 def ModificarU(name, correo):
-    cur.execute(f"UPDATE usuario SET estado = '{correo}' WHERE nombre_usuario = '{name}'")
+    cur.execute(f"UPDATE subscripcion SET tipo = '{correo}' WHERE usuario = '{name}'")
     conn.commit()
 
 def renderEliminarC():
