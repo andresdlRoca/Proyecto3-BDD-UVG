@@ -76,6 +76,7 @@ def renderUsuarios():
     botonlogin.place_forget()
     botonsignup.place_forget()
     botonsalir.place_forget()
+    botonadministrar.place(relx=0.5, rely=0.2, anchor="center")
     botonmodificarU.place(relx=0.5, rely=0.5, anchor="center")
     botoneliminarU.place(relx=0.5, rely=0.8, anchor="center")
     entryarea.configure(width=350, height=300)
