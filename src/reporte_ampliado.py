@@ -16,22 +16,18 @@ def main_screen_more_reports():
     Font = tkFont.Font(family="@MS UI Gothic", size=12, weight="bold" )
     logoCanvas = tk.Canvas(window, width = 150, height = 150, highlightthickness=0, bg=background)
     window.configure(bg=background)
-    window.geometry("900x500")
+    window.geometry("500x600")
     window.resizable(False,False)
     
     
     button_top10_genre = tk.Button(window, bg=foreground, width=30, height=6, text="top5_per_hour", font=Font, command=lambda: top5_per_hour())
-    button_top10_genre.place(relx=0.1, rely=0.3, anchor="w")
+    button_top10_genre.place(relx=0.2, rely=0.2, anchor="w")
     
     button_reproduction_amount = tk.Button(window, bg=foreground, width=30, height=6, text="top10_searches", font=Font, command=lambda: top10_searches())
-    button_reproduction_amount.place(relx=0.9, rely=0.3, anchor="e")
+    button_reproduction_amount.place(relx=0.2, rely=0.5, anchor="w")
     
     button_top10_staff = tk.Button(window, bg=foreground, width=30, height=6, text="top5_staff", font=Font, command=lambda: top5_staff())
-    button_top10_staff.place(relx=0.1, rely=0.7, anchor="w")
-    
-    button_premium_accounts = tk.Button(window, bg=foreground, width=30, height=6, text="premium_accounts", font=Font, command=lambda: premium_accounts())
-    button_premium_accounts.place(relx=0.9, rely=0.7, anchor="e")
-
+    button_top10_staff.place(relx=0.2, rely=0.8, anchor="w")
     
     window.mainloop()
     
@@ -167,6 +163,8 @@ def top5_per_hour_report(inputMonth, entryarea9, entryarea10,entryarea11,entryar
             elif checker ==12:
                 monthStart = "2022-12-01"
                 monthEnd = "2023-01-01"
+            print(monthStart)
+            print(monthEnd)
 
             
             conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
@@ -174,7 +172,7 @@ def top5_per_hour_report(inputMonth, entryarea9, entryarea10,entryarea11,entryar
             cur.execute("""
                 SELECT  *
                 FROM top_by_hour
-                WHERE fecha_visualizacion > %(monthStart)s
+                WHERE fecha_visualizacion >= %(monthStart)s
                 AND fecha_visualizacion < %(monthEnd)s
 
                 """, {
@@ -183,6 +181,7 @@ def top5_per_hour_report(inputMonth, entryarea9, entryarea10,entryarea11,entryar
                 })
             
             report = cur.fetchall()
+            print(report)
             tempList24 = []
             tempList23 = []
             tempList22 = []
@@ -202,19 +201,19 @@ def top5_per_hour_report(inputMonth, entryarea9, entryarea10,entryarea11,entryar
             infoList = {}
             
             for i in report:
-                if(i[0] == 24.0):
+                if(i[0] == 0.0):
                     if(len(tempList24) == 5):
                         break
                     else:
                         tempList24.append(i[2])
-                        infoList[i[0]] = templist24
+                        infoList[i[0]] = tempList24
                 
                 if(i[0] == 23.0):
                     if(len(tempList23) == 5):
                         break
                     else:
                         tempList23.append(i[2])
-                        infoList[i[0]] = templist23
+                        infoList[i[0]] = tempList23
                         
                 if(i[0] == 22.0):
                     if(len(tempList22) == 5):
@@ -316,13 +315,14 @@ def top5_per_hour_report(inputMonth, entryarea9, entryarea10,entryarea11,entryar
             
         else:
             tk.messagebox.showinfo("Error", "Ingrese en el rango de 1 a 12")
-            
 
-        if 24.0 in infoList.keys():
+        print(infoList)   
+
+        if 0.0 in infoList.keys():
             txt=""
             x = 1
             y = 0.25
-            for i in infoList[24.0]:
+            for i in infoList[0.0]:
                 blank = "                                                  "
                 txt = str(x) + '.'+ i
                 empty = Label(entryarea24, text = blank, bg = foreground)

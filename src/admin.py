@@ -595,10 +595,11 @@ def renderReportes(window):
 def inicializacionAdmin():
     window.deiconify()
     entryarea.place(relx=0.5, rely=0.62, anchor="center")
-    botonlogin.place(relx=0.5, rely=0.2, anchor="center")
-    botonsignup.place(relx=0.5, rely=0.4, anchor="center")
-    botonReportes.place(relx=0.5, rely=0.6, anchor="center")
-    botonsalir.place(relx=0.5, rely=0.8, anchor="center")
+    botonlogin.place(relx=0.5, rely=0.1, anchor="center")
+    botonsignup.place(relx=0.5, rely=0.3, anchor="center")
+    botonReportes.place(relx=0.5, rely=0.5, anchor="center")
+    botonbitacora.place(relx=0.5, rely=0.7, anchor="center")
+    botonsalir.place(relx=0.5, rely=0.9, anchor="center")
     #Configuraciones extra de ventana
     window.configure(bg=background)
     window.geometry("900x500")

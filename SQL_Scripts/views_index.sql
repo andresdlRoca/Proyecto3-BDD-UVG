@@ -4,6 +4,7 @@ FROM	historial
 JOIN	multimedia ON multimedia.id_contenido = historial.id_contenido
 WHERE	EXTRACT(HOUR FROM	fecha_visualizacion) > 9
 AND 	EXTRACT(HOUR FROM	fecha_visualizacion) <= 24
+OR		EXTRACT(HOUR FROM	fecha_visualizacion) = 0
 GROUP BY	hour_time, multimedia.nombre, fecha_visualizacion
 ORDER BY	hour_time DESC, amount DESC
 
