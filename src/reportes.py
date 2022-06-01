@@ -7,6 +7,7 @@ import tkinter.font as tkFont
 from tkinter import OptionMenu, Scrollbar, StringVar, messagebox
 from datetime import date
 from simulacion_historial import simularRegistro
+from reporte_ampliado import main_screen_more_reports
 
 background = '#ffe4e1'
 foreground = '#79a1e0'
@@ -37,6 +38,9 @@ def main_screen():
 
     button_generate_views = tk.Button(window, bg=foreground, width=30, height=4, text="Generate Views", font=Font, command=lambda: generateViews())
     button_generate_views.place(relx=0.9, rely=0.8, anchor="e")
+    
+    button_additional_reports = tk.Button(window, bg=foreground, width=10, height=1, text="More Reports", font=Font, command=lambda: main_screen_more_reports())
+    button_additional_reports.place(relx=0.95, rely=0.99, anchor="s")
 
     
     window.mainloop()
@@ -75,7 +79,7 @@ def top10_genre_report(initial, final, report_area, Font):
     
 
     
-    conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
+    conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=12345")
     cur = conn.cursor()
     cur.execute("""
         SELECT  generos.nombre, SUM(multimedia.duracion) 
@@ -129,7 +133,7 @@ def reproduction_amount_report(initial, final, report_area, Font):
     initial_date = initial.get_date()
     final_date = final.get_date()
     
-    conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
+    conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=12345")
     cur = conn.cursor()
     cur.execute("""
         SELECT  subscripcion.tipo, COUNT(historial.fecha_visualizacion)
@@ -183,7 +187,7 @@ def top10_staff():
     normal_actor_txt = Label(premiumArea, text = "Directores", bg = foreground, font = Font)
     normal_actor_txt.place(relx=0.5, rely=0.55, anchor="center")
     
-    conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
+    conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=12345")
     cur = conn.cursor()
     cur.execute("""
     SELECT  actor.nombre_completo, COUNT(actor_contenido.actor_id)
@@ -201,7 +205,7 @@ def top10_staff():
     
     actors_basic = cur.fetchall()
     
-    conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
+    conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=12345")
     cur = conn.cursor()
     cur.execute("""
     SELECT  director.nombre_completo, COUNT(director_contenido.id)
@@ -257,7 +261,7 @@ def top10_staff():
     
             
             
-    conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
+    conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=12345")
     cur = conn.cursor()
     cur.execute("""
     SELECT  actor.nombre_completo, COUNT(actor_contenido.actor_id)
@@ -275,7 +279,7 @@ def top10_staff():
     
     actors_advanzed = cur.fetchall()
     
-    conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
+    conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=12345")
     cur = conn.cursor()
     cur.execute("""
     SELECT  director.nombre_completo, COUNT(director_contenido.id)
@@ -399,7 +403,7 @@ def premium_accounts():
         today_year = str(today_year)
         whole_date = today_year + "-" + "06" + "-" + today_day
         
-    conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
+    conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=12345")
     cur = conn.cursor()
     cur.execute("""
     SELECT  tipo, COUNT(tipo)
@@ -459,7 +463,7 @@ def peak_hour_report(date, report_area, Font):
     given_date = date.get_date()
     date_list = given_date.split("-")
     
-    conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
+    conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=12345")
     cur = conn.cursor()
     cur.execute("""
     SELECT  EXTRACT(HOUR FROM   fecha_visualizacion), COUNT(fecha_visualizacion)
@@ -490,4 +494,4 @@ def peak_hour_report(date, report_area, Font):
         tk.messagebox.showinfo("Error", "En esa fecha no hay ningun registro de historial")
         
 
-#main_screen()
+main_screen()
