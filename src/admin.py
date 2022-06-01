@@ -15,6 +15,7 @@ def renderContenido():
     botonlogin.place_forget()
     botonsignup.place_forget()
     botonsalir.place_forget()
+    botonbitacora.place_forget()
     botonagregarC.place(relx=0.5, rely=0.2, anchor="center")
     botonmodificarC.place(relx=0.5, rely=0.4, anchor="center")
     botoneliminarC.place(relx=0.5, rely=0.6, anchor="center")
@@ -76,6 +77,7 @@ def renderUsuarios():
     botonlogin.place_forget()
     botonsignup.place_forget()
     botonsalir.place_forget()
+    botonbitacora.place_forget()
     botonadministrar.place(relx=0.5, rely=0.2, anchor="center")
     botonmodificarU.place(relx=0.5, rely=0.5, anchor="center")
     botoneliminarU.place(relx=0.5, rely=0.8, anchor="center")
@@ -85,6 +87,7 @@ def renderAnuncios():
     botonlogin.place_forget()
     botonsignup.place_forget()
     botonsalir.place_forget()
+    botonbitacora.place_forget()
     botonagregarA.place(relx=0.5, rely=0.2, anchor="center")
     botonmodificarA.place(relx=0.5, rely=0.4, anchor="center")
     botonrelacionarA.place(relx=0.5, rely=0.6, anchor="center")
@@ -95,8 +98,9 @@ def renderStart():
     for widget in entryarea.winfo_children():
         widget.place_forget()
     botonlogin.place(relx=0.5, rely=0.2, anchor="center")
-    botonsignup.place(relx=0.5, rely=0.5, anchor="center")
-    botonsalir.place(relx=0.5, rely=0.8, anchor="center")
+    botonsignup.place(relx=0.5, rely=0.4, anchor="center")
+    botonsalir.place(relx=0.5, rely=0.6, anchor="center")
+    botonbitacora.place(relx=0.5, rely=0.8, anchor="center")
     entryarea.configure(width=350, height=300)
 
 def clear_entradas(event, entry):
@@ -615,6 +619,9 @@ botonReportes = tk.Button(entryarea, bg=background, width=20, height=3, text="Re
 
 botonsalir = tk.Button(entryarea, bg=background, width=20, height=3, text="Anuncios", font=botonesFont, command=lambda: renderAnuncios())
 #botonsalir.place(relx=0.5, rely=0.8, anchor="center")
+
+botonbitacora = tk.Button(entryarea, bg=background, width=20, height=2, text="Bitacora", font=botonesFont, command=lambda: UI_bitacora())
+#botonbitacora.place(relx=0.5, rely=0.8, anchor="center")
 
 botonagregarC = tk.Button(entryarea, bg=background, width=20, height=2, text="Agregar", font=botonesFont, command=lambda: renderMultimedia())
 
