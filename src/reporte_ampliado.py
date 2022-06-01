@@ -167,7 +167,7 @@ def top5_per_hour_report(inputMonth, entryarea9, entryarea10,entryarea11,entryar
             print(monthEnd)
 
             
-            conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=12345")
+            conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
             cur = conn.cursor()
             cur.execute("""
                 SELECT  *
@@ -570,7 +570,7 @@ def top5_staff_report(initial, final, report_area, Font):
     initial_date = initial.get_date()
     final_date = final.get_date()
     
-    conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=12345")
+    conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
     cur = conn.cursor()
     cur.execute("""
         SELECT  nombre, COUNT(nombre)
@@ -608,7 +608,7 @@ def top10_searches():
     entryarea = tk.Canvas(window, width=300, height=300, bg=foreground)
     entryarea.place(relx=0.5, rely=0.5, anchor="center")
     
-    conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=12345")
+    conn = psycopg2.connect("host=localhost dbname=proyecto3 user=postgres password=rwby123")
     cur = conn.cursor()
     cur.execute("""
         SELECT  busqueda, COUNT(busqueda)
